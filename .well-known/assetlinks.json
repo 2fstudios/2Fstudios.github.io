@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.doublefgames.reflexgame",
+      "sha256_cert_fingerprints": [
+        "46:AE:95:E8:CC:D1:5F:BA:3C:1B:C2:34:A2:01:3B:7B:F8:A9:8D:18:A3:8E:25:20:1F:F7:BE:98:42:74:22:AB"
+      ]
+    }
+  }
+]

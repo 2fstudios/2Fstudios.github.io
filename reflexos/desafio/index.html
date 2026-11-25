@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b0f1f">
+<title>Teste de Reflexos — Desafio</title>
+<meta property="og:title" content="⚡ Duvido você bater meu tempo!">
+<meta property="og:description" content="Aceite o desafio no Teste de Reflexos.">
+<meta name="robots" content="noindex">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:#fff;display:flex;align-items:center;justify-content:center;padding:24px;
+  background:radial-gradient(520px 420px at 15% 10%,rgba(31,58,168,.55),transparent 70%),radial-gradient(480px 380px at 85% 95%,rgba(12,122,102,.5),transparent 70%),#0b0f1f}
+.card{width:100%;max-width:380px;text-align:center;border-radius:30px;padding:28px 22px 22px;
+  background:linear-gradient(170deg,#2c376e,#1a2142 70%);box-shadow:0 9px 0 #0a0d1c,0 30px 70px rgba(0,0,0,.6),inset 0 2px 0 rgba(255,255,255,.14)}
+.logo{width:84px;height:84px;margin:0 auto 16px;border-radius:26px;display:grid;place-items:center;
+  background:linear-gradient(145deg,#6dffb8,#14b866);box-shadow:0 7px 0 #0a8a4a,0 0 40px rgba(67,245,154,.45),inset 0 3px 0 rgba(255,255,255,.6)}
+h1{font-size:26px;font-weight:900;letter-spacing:-.02em}
+p{color:#a9b3d9;font-weight:600;font-size:16px;line-height:1.45;margin-top:10px}
+p b{color:#fff}
+.t{display:inline-block;margin:16px 0 20px;padding:10px 18px;border-radius:99px;background:rgba(108,198,255,.16);color:#bfe6ff;font-weight:900;font-size:18px}
+a.btn{display:flex;align-items:center;justify-content:center;gap:8px;height:56px;border-radius:18px;font-weight:900;font-size:17px;text-decoration:none;margin-top:12px}
+.pri{background:linear-gradient(180deg,#43f59a,#14c96d);color:#03230f;box-shadow:0 6px 0 #0a8a4a}
+.sec{background:#2b3566;color:#fff;box-shadow:0 6px 0 #11163a}
+small{display:block;color:#6c76a3;font-size:12px;margin-top:16px;font-weight:600}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="logo"><svg width="46" height="46" viewBox="0 0 24 24"><path d="M13.6 2 5 14h6.2l-1.6 8L19.2 9.6H13z" fill="#03230f"/></svg></div>
+  <h1 id="h"></h1>
+  <p id="p"></p>
+  <div class="t" id="t"></div>
+  <a class="btn pri" id="open"></a>
+  <a class="btn sec" id="store"></a>
+  <small>2F Studios</small>
+</div>
+<script>
+(function(){
+  var PKG='com.doublefgames.reflexgame';
+  var q=new URLSearchParams(location.search);
+  var MODES={reflex:['Reflexo','Reflex'],five:['Reflexo ×5','Reflex ×5'],motion:['Movimento invisível','Invisible Motion']};
+  var m=MODES[q.get('m')]?q.get('m'):null, t=parseInt(q.get('t'),10);
+  if(!(t>=60&&t<=5000))t=null;
+  var pt=(q.get('l')||navigator.language||'pt').toLowerCase().indexOf('pt')===0;
+  document.documentElement.lang=pt?'pt-BR':'en';
+  var L=pt?{h:'Desafio recebido!',p:'Um amigo fez <b>{t} ms</b> no <b>{m}</b>. Duvido você bater!',p0:'Teste seus reflexos e desafie seus amigos.',
+            t:'🎯 Bater {t} ms',open:'Aceitar no app',store:'Baixar grátis na Google Play',title:'Teste de Reflexos — Desafio'}
+          :{h:'Challenge received!',p:"A friend hit <b>{t} ms</b> on <b>{m}</b>. Bet you can't beat it!",p0:'Test your reflexes and challenge your friends.',
+            t:'🎯 Beat {t} ms',open:'Accept in the app',store:'Get it free on Google Play',title:'Reaction Test — Challenge'};
+  document.title=L.title;
+  var name=m?MODES[m][pt?0:1]:'';
+  document.getElementById('h').textContent=L.h;
+  document.getElementById('p').innerHTML=(m&&t)?L.p.replace('{t}',t).replace('{m}',name):L.p0;
+  var te=document.getElementById('t'); if(m&&t)te.textContent=L.t.replace('{t}',t); else te.style.display='none';
+  var params=(m&&t)?('m='+m+'&t='+t+'&l='+(pt?'pt':'en')):'';
+  var store='https://play.google.com/store/apps/details?id='+PKG+(params?'&referrer='+encodeURIComponent('utm_source=challenge&utm_medium=share&'+params):'');
+  var self=location.origin+location.pathname+(params?'?'+params:'');
+  var intent='intent://'+self.replace(/^https?:\/\//,'')+'#Intent;scheme=https;package='+PKG+';S.browser_fallback_url='+encodeURIComponent(store)+';end';
+  var isAndroid=/android/i.test(navigator.userAgent);
+  var o=document.getElementById('open'), s=document.getElementById('store');
+  o.textContent=L.open; s.textContent=L.store; s.href=store;
+  o.href=isAndroid?intent:store;
+})();
+</script>
+</body>
+</html>
